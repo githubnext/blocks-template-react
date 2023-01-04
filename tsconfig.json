@@ -1,0 +1,7 @@
+{
+  "extends": "./node_modules/@githubnext/blocks/tsconfig.json",
+  "include": ["./blocks", "./src"],
+  "compilerOptions": {
+    "types": ["vite/client", "svelte"]
+  }
+}
