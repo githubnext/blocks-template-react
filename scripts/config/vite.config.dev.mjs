@@ -1,7 +1,6 @@
 import fs from "fs";
 import { searchForWorkspaceRoot } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import preprocess from "svelte-preprocess";
+import react from "@vitejs/plugin-react";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import parseGitConfig from "parse-git-config";
 
@@ -25,6 +24,20 @@ const getViteConfigDev = (port, https) => ({
       allow: [searchForWorkspaceRoot(process.cwd())],
     },
   },
+  optimizeDeps: {
+    // what else can we do here?
+    include: [
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "styled-components",
+      "hoist-non-react-statics",
+      "react-is",
+      "lodash.uniqueid",
+      "@primer/react",
+      "picomatch-browser",
+    ],
+  },
   build: {
     commonjsOptions: {
       include: /node_modules/,
@@ -32,9 +45,7 @@ const getViteConfigDev = (port, https) => ({
   },
   plugins: [
     https ? basicSsl() : null,
-    svelte({
-      preprocess: preprocess({}),
-    }),
+    react(),
     {
       name: "configure-response-headers",
       configureServer: (server) => {
