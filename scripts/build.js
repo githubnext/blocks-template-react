@@ -12,7 +12,7 @@ const build = async () => {
     return esbuild.build({
       entryPoints: [`./` + block.entry],
       bundle: true,
-      outfile: `dist/${block.id}`,
+      outdir: `dist/${block.id}`,
       format: "iife",
       globalName: "BlockBundle",
       minify: true,
